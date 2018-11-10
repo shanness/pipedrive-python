@@ -10,12 +10,23 @@ class Client:
     api_version = "v1/"
     header = {"Accept": "application/json, */*", "content-type": "application/json"}
 
-    def __init__(self, api_base_url, client_id=None, client_secret=None, oauth=False):
+    _fields = ("client_id", "client_secret", "oauth", "api_base_url", "token")
+
+    def __init__(self, api_base_url=None, client_id=None, client_secret=None, oauth=False):
         self.client_id = client_id
         self.client_secret = client_secret
         self.oauth = oauth
         self.api_base_url = api_base_url
         self.token = None
+        if not api_base_url:
+            self._load_settings()
+
+    def _load_settings(self):
+        data = json.load(open("pipedrive_settings.json", 'r'))
+        for field in self._fields:
+            if field in data:
+                self.__setattr__(field,data[field])
+
 
     def make_request(self, method, endpoint, data=None, json=None, **kwargs):
         """
