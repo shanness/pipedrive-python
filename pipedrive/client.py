@@ -58,7 +58,7 @@ class Client:
             :param response:
             :return:
         """
-        if response.status_code == 204 or response.status_code == 201:
+        if response.status_code == 204: # duplicate_deal returns data and is 201, removed or response.status_code == 201:
             return True
         elif response.status_code == 400:
             raise Exception(
