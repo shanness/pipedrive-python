@@ -1,0 +1,4 @@
+{
+    "api_base_url": "<put your base url here>",
+    "token": "<put your API url here can also use oauth tokens, see client.py>"
+}
